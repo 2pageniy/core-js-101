@@ -235,8 +235,18 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  const newArr = [...arr];
+
+  arr.map((item, index) => {
+    if (index === 0) {
+      newArr[index] = item;
+      return item;
+    }
+    newArr[index] = newArr[index - 1] + item;
+    return item;
+  });
+  return newArr;
 }
 
 /**
@@ -269,8 +279,17 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const newArr = [];
+
+  arr.map((item, index) => {
+    const array = [];
+    array.length = index + 1;
+    array.fill(item);
+    newArr.push(...array);
+    return item;
+  });
+  return newArr;
 }
 
 
@@ -323,8 +342,17 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digitNames = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  return arr.sort((a, b) => {
+    if (digitNames.indexOf(a) === digitNames.indexOf(b)) {
+      return 0;
+    }
+    if (digitNames.indexOf(a) > digitNames.indexOf(b)) {
+      return 1;
+    }
+    return -1;
+  });
 }
 
 /**
@@ -450,8 +478,15 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const matrix = new Array(n);
+  matrix.fill([]);
+  return matrix.map((item, index) => {
+    const arr = new Array(n);
+    arr.fill(0);
+    arr[index] = 1;
+    return arr;
+  });
 }
 
 /**
@@ -467,8 +502,12 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const length = end - start + 1;
+  const arr = new Array(length);
+  arr.fill(0);
+
+  return arr.map((item, index) => index + start);
 }
 
 /**
@@ -516,8 +555,16 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((acc, curr) => {
+    if (!acc.get(keySelector(curr))) {
+      acc.set(keySelector(curr), [valueSelector(curr)]);
+    } else {
+      acc.set(keySelector(curr), [...acc.get(keySelector(curr)), valueSelector(curr)]);
+    }
+    return acc;
+  },
+  new Map());
 }
 
 
