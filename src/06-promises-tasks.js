@@ -100,22 +100,22 @@ function getFastestPromise(array) {
  *    });
  *
  */
-// async function chainPromises(array, action) {
-//   const responses = [];
-//   return new Promise((resolve) => {
-//     array.forEach(async (singlePromise, i) => {
-//       const res = await singlePromise;
-//       responses.push(res);
-//       if (i === array.length - 1) {
-//         resolve(responses);
-//       }
-//     });
-//   }).then((res) => res.reduce(action));
-// }
+async function chainPromises(array, action) {
+  const responses = [];
+  return new Promise((resolve) => {
+    array.forEach(async (singlePromise, i) => {
+      const res = await singlePromise;
+      responses.push(res);
+      if (i === array.length - 1) {
+        resolve(responses);
+      }
+    });
+  }).then((res) => res.reduce(action));
+}
 
 module.exports = {
   willYouMarryMe,
   processAllPromises,
   getFastestPromise,
-  // chainPromises,
+  chainPromises,
 };
